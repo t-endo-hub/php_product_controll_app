@@ -28,7 +28,6 @@ services:
       - ./volumes/web/docker_initial_files:/docker_initial_files  
       - ./volumes/web/usr/local/bin/web:/usr/local/bin/web
       - ../:/var/www/lamp
-      - ./volumes/web/var/lib/mysql:/var/lib/mysql
       
     networks:
       - lamp_net
