@@ -11,9 +11,8 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
+Route::get('/', 'ProductItemController@index')->name('product_item.index');;
 
 Auth::routes();
 

@@ -15,5 +15,5 @@ if [ ${PS_CNT} -lt 1 ]; then
     docker exec ${container_name} ln -s /docker_initial_files/etc/php.d/xdebug.ini /etc/php.d/xdebug.ini
 fi
  
-docker exec ${container_name} chmod 777 /usr/local/bin/web/startup.sh
-docker exec ${container_name} /usr/local/bin/web/startup.sh
+docker exec  ${container_name} chmod 777 /usr/local/bin/web/startup.sh
+docker exec  ${container_name} /usr/local/bin/web/startup.sh
