@@ -12,7 +12,10 @@
 */
 
 
-Route::get('/', 'ProductItemController@index')->name('product_item.index');;
+Route::get('/', 'ProductItemController@index')->name('product_item.index');
+Route::get('/product_item/create', 'ProductItemController@create')->name('product_item.create');
+Route::post('/product_item/store', 'ProductItemController@store')->name('product_item.store');
+
 
 Auth::routes();
 
