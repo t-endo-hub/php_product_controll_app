@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\ProductItem;
+use App\Http\Requests\ProductItemRequest;
 
 class ProductItemController extends Controller
 {
@@ -18,7 +19,7 @@ class ProductItemController extends Controller
         return view('product_item.create');
     }
 
-    public function store(Request $request)
+    public function store(ProductItemRequest $request)
     {
         $input = $request->all();
         ProductItem::create($input);

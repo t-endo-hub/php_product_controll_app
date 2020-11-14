@@ -13,7 +13,7 @@ class ProductItemRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,7 @@ class ProductItemRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'item_name' => 'required | max:50 | unique:product_items'
         ];
     }
 }

@@ -9,7 +9,15 @@
         <button type="submit" class="btn btn-primary">
           追加
         </button>
+
+        @if ($errors->has('item_name'))
+            <div class="text-danger">
+                {{ $errors->first('item_name') }}
+            </div>
+        @endif
+
       </div>
     </form>
+
   </div>
 </div>
