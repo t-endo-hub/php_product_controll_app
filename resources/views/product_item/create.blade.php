@@ -1,5 +1,7 @@
+@extends('layouts.app')
+@section('content')
+
 <div class="container">
-  <div class="row">
     <h3>生産アイテム新規登録</h3>
     <form action="{{route('product_item.store')}}" method="POST">
     @csrf
@@ -18,6 +20,5 @@
 
       </div>
     </form>
-
-  </div>
 </div>
+@endsection
