@@ -9,7 +9,8 @@ class ProductItemController extends Controller
 {
     public function index()
     {
-        return view('product_item.index');
+        $product_items = ProductItem::all();
+        return view('product_item.index',[ 'product_items' => $product_items ]);
     }
 
     public function create()
