@@ -4,7 +4,7 @@
 <div class="container">
   <h2>生産アイテム一覧画面</h2>
   <div class="row">
-    <table>
+    <table class="table">
       <tr>
         <th>生産アイテム名</th>
         <th>登録日時</th>
@@ -19,5 +19,9 @@
       @endforeach
     </table>
   </div>
+  <div class="d-flex justify-content-center">
+    {{ $product_items->links() }}
+  </div>
 </div>
+
 @endsection

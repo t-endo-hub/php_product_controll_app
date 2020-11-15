@@ -10,7 +10,8 @@ class ProductItemController extends Controller
 {
     public function index()
     {
-        $product_items = ProductItem::all();
+
+        $product_items = ProductItem::paginate(5);
         return view('product_item.index',[ 'product_items' => $product_items ]);
     }
 
@@ -48,11 +49,6 @@ class ProductItemController extends Controller
 
     public function destroy($id)
     {
-        if (is_null($id)) {
-            \Session::flash('error_message','アイテムがありません');
-            return redirect (route('product_item.index'));
-        }
-
         \Session::flash('flash_message', '削除が完了しました');
         ProductItem::destroy($id);
         return redirect (route('product_item.index'));
