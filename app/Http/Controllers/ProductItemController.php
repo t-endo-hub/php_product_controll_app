@@ -10,7 +10,6 @@ class ProductItemController extends Controller
 {
     public function index()
     {
-
         $product_items = ProductItem::paginate(5);
         return view('product_item.index',[ 'product_items' => $product_items ]);
     }

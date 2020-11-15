@@ -2,7 +2,12 @@
 @section('content')
 
 <div class="container">
-  <h2>生産アイテム一覧</h2>
+  <div class="row mb-2">
+    <h2>生産アイテム一覧</h2>
+    <a class="btn btn-primary ml-3" href="{{ route('product_item.create') }}">
+        新規アイテム追加
+    </a>
+  </div>
   <div class="row">
     <table class="table">
       <tr>

@@ -20,4 +20,10 @@ class ChargeController extends Controller
         \Session::flash('flash_message', '担当者を追加しました');
         return redirect (route('charge.index'));
     }
+
+    public function index()
+    {
+        $charges = Charge::paginate(10);
+        return view('charge.index', [ 'charges' => $charges ]);
+    }
 }

@@ -55,8 +55,8 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('product_item.create') }}">
-                                        生産アイテム追加
+                                    <a class="dropdown-item" href="{{ route('charge.index') }}">
+                                        担当者一覧
                                     </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
