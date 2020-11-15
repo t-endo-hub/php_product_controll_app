@@ -2,24 +2,24 @@
 @section('content')
 
 <div class="container">
-  <h2>生産アイテム編集</h2>
+  <h2>担当者編集</h2>
   <div class="row mt-4">
-    <form action="{{ route ('product_item.update', $product_item->id) }}" method="POST">
+    <form action="{{ route ('charge.update', $charge->id) }}" method="POST">
     @method('PATCH')
     @csrf
-      <input type="text" name="item_name" value='{{ $product_item->item_name}}'/>
+      <input type="text" name="charge_name" value='{{ $charge->charge_name}}'/>
       <button type="submit" class="btn btn-primary">
         更新
       </button>
 
-      @if ($errors->has('item_name'))
+      @if ($errors->has('charge_name'))
           <div class="text-danger">
-              {{ $errors->first('item_name') }}
+              {{ $errors->first('charge_name') }}
           </div>
       @endif
     </form>
 
-    <form action="{{ route ('product_item.destroy', $product_item->id) }}" method="POST">
+    <form action="{{ route ('charge.destroy', $charge->id) }}" method="POST">
     @method('DELETE')
     @csrf
       <button type="submit" class="btn btn-danger">削除</button>

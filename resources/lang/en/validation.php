@@ -103,7 +103,8 @@ return [
     */
 
     'attributes' => [
-        'item_name'=>'アイテム名'
+        'item_name'=> 'アイテム名',
+        'charge_name' => '担当者名'
     ],
 
 ];

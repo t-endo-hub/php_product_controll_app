@@ -37,19 +37,19 @@ class ProductItemController extends Controller
         return view('product_item.edit',[ 'product_item' => $product_item ]);
     }
 
-    public function update(ProductItemRequest $request)
+    public function update(ProductItemRequest $request, $id)
     {
         $input = $request->all();
-        $product_item = ProductItem::find($input['id']);
+        $product_item = ProductItem::find($id);
         $product_item->update($input);
         \Session::flash('flash_message', 'アイテムを更新しました');
         return redirect (route('product_item.index'));
     }
 
-    public function destroy($product_item)
+    public function destroy($id)
     {
         \Session::flash('flash_message', '削除が完了しました');
-        ProductItem::destroy($product_item);
+        ProductItem::destroy($id);
         return redirect (route('product_item.index'));
     }
 
