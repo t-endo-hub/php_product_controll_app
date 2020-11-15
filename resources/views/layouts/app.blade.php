@@ -76,6 +76,17 @@
         </nav>
 
         <main class="py-4">
+            <div class="container">
+                @if (session('flash_message'))
+                    <p class="text-success">
+                        {{ session('flash_message') }}
+                    </p>
+                @elseif (session('error_message'))
+                    <p class="text-danger">
+                        {{ session('error_message') }}
+                    </p>
+                @endif
+            </div>
             @yield('content')
         </main>
     </div>

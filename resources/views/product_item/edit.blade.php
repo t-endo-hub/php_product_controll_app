@@ -2,14 +2,15 @@
 @section('content')
 
 <div class="container">
-    <h2>生産アイテム新規登録画面</h2>
-    <form action="{{route('product_item.store')}}" method="POST">
+    <h2>生産アイテム編集登録画面</h2>
+    <form action="{{route('product_item.update')}}" method="POST">
     @csrf
       <div>
         <label>アイテム名</label><br>
-        <input type="text" name="item_name" />
+        <input type="hidden" name="id" value="{{ $product_item->id }}">
+        <input type="text" name="item_name" value='{{ $product_item->item_name}}'/>
         <button type="submit" class="btn btn-primary">
-          追加
+          更新
         </button>
 
         @if ($errors->has('item_name'))

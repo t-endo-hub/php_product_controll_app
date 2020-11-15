@@ -13,9 +13,14 @@
 
 
 Route::get('/', 'ProductItemController@index')->name('product_item.index');
+
 Route::get('/product_item/create', 'ProductItemController@create')->name('product_item.create');
+
 Route::post('/product_item/store', 'ProductItemController@store')->name('product_item.store');
 
+Route::get('/product_item/{id}', 'ProductItemController@edit')->name('product_item.edit');
+
+Route::post('/product_item/update', 'ProductItemController@update')->name('product_item.update');
 
 Auth::routes();
 
