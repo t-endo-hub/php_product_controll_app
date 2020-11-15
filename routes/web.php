@@ -22,6 +22,8 @@ Route::get('/product_item/{id}', 'ProductItemController@edit')->name('product_it
 
 Route::post('/product_item/update', 'ProductItemController@update')->name('product_item.update');
 
+Route::post('/product_item/destroy/{id}', 'ProductItemController@destroy')->name('product_item.destroy');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

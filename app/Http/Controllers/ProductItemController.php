@@ -46,4 +46,16 @@ class ProductItemController extends Controller
         return redirect (route('product_item.index'));
     }
 
+    public function destroy($id)
+    {
+        if (is_null($id)) {
+            \Session::flash('error_message','アイテムがありません');
+            return redirect (route('product_item.index'));
+        }
+
+        \Session::flash('flash_message', '削除が完了しました');
+        ProductItem::destroy($id);
+        return redirect (route('product_item.index'));
+    }
+
 }

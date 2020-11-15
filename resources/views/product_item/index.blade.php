@@ -14,7 +14,7 @@
       <tr>
         <td>{{$product_item->item_name}}</td>
         <td>{{$product_item->created_at}}</td>
-        <td><button onclick="location.href='/product_item/{{ $product_item -> id }}'">編集</button></td>
+        <td><a class="btn btn-primary" href="/product_item/{{ $product_item->id }}" >編集</a></td>
       </tr>
       @endforeach
     </table>
