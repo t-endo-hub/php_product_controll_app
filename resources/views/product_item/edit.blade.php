@@ -4,7 +4,8 @@
 <div class="container">
   <h2>生産アイテム編集登録画面</h2>
   <div class="row mt-4">
-    <form action="{{ route ('product_item.update') }}" method="POST">
+    <form action="{{ route ('product_item.update', $product_item->id) }}" method="POST">
+    @method('PATCH')
     @csrf
       <input type="hidden" name="id" value="{{ $product_item->id }}">
       <input type="text" name="item_name" value='{{ $product_item->item_name}}'/>
@@ -20,6 +21,7 @@
     </form>
 
     <form action="{{ route ('product_item.destroy', $product_item->id) }}" method="POST">
+    @method('DELETE')
     @csrf
       <button type="submit" class="btn btn-danger">削除</button>
     </form>

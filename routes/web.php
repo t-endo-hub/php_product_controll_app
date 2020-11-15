@@ -14,15 +14,10 @@
 
 Route::get('/', 'ProductItemController@index')->name('product_item.index');
 
-Route::get('/product_item/create', 'ProductItemController@create')->name('product_item.create');
+Route::resource('product_item', 'ProductItemController', ['except' => ['index', 'show']]);
 
-Route::post('/product_item/store', 'ProductItemController@store')->name('product_item.store');
+Route::resource('charge', 'ChargeController', ['except' => ['show']]);
 
-Route::get('/product_item/{id}', 'ProductItemController@edit')->name('product_item.edit');
-
-Route::post('/product_item/update', 'ProductItemController@update')->name('product_item.update');
-
-Route::post('/product_item/destroy/{id}', 'ProductItemController@destroy')->name('product_item.destroy');
 
 Auth::routes();
 

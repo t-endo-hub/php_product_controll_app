@@ -47,10 +47,10 @@ class ProductItemController extends Controller
         return redirect (route('product_item.index'));
     }
 
-    public function destroy($id)
+    public function destroy($product_item)
     {
         \Session::flash('flash_message', '削除が完了しました');
-        ProductItem::destroy($id);
+        ProductItem::destroy($product_item);
         return redirect (route('product_item.index'));
     }
 
