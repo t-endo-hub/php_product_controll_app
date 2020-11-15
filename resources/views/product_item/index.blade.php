@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container">
-  <h2>生産アイテム一覧画面</h2>
+  <h2>生産アイテム一覧</h2>
   <div class="row">
     <table class="table">
       <tr>

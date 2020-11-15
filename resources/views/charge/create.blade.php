@@ -2,12 +2,12 @@
 @section('content')
 
 <div class="container">
-    <h2>生産アイテム新規登録</h2>
-    <form action="{{route('product_item.store')}}" method="POST">
+    <h2>担当者新規登録</h2>
+    <form action="{{route('charge.store')}}" method="POST">
     @csrf
       <div>
-        <label>アイテム名</label><br>
-        <input type="text" name="item_name" />
+        <label>担当者名</label><br>
+        <input type="text" name="charge_name" />
         <button type="submit" class="btn btn-primary">
           追加
         </button>

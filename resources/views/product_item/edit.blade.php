@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="container">
-  <h2>生産アイテム編集登録画面</h2>
+  <h2>生産アイテム編集登録</h2>
   <div class="row mt-4">
     <form action="{{ route ('product_item.update', $product_item->id) }}" method="POST">
     @method('PATCH')
