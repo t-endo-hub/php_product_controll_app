@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Charge;
+use App\Models\ProductItem;
 use App\Http\Requests\ChargeRequest;
 
 class ChargeController extends Controller
 {
     public function create()
     {
-        return view('charge.create');
+        $product_items = ProductItem::paginate(5);
+        return view('charge.create', ['product_items' => $product_items]);
     }
 
     public function store(ChargeRequest $request)
