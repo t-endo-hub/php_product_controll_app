@@ -18,6 +18,10 @@ Route::resource('product_item', 'ProductItemController', ['except' => ['index', 
 
 Route::resource('charge', 'ChargeController', ['except' => ['show']]);
 
+Route::get('charge_can_work/create/{id}', 'ChargeCanWorkController@create')->name('charge_can_work.create');
+
+Route::resource('charge_can_work', 'ChargeCanWorkController', ['only' => ['store']]);
+
 
 Auth::routes();
 

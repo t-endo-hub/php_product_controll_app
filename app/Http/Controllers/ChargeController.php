@@ -11,16 +11,15 @@ class ChargeController extends Controller
 {
     public function create()
     {
-        $product_items = ProductItem::paginate(5);
-        return view('charge.create', ['product_items' => $product_items]);
+        return view('charge.create');
     }
 
     public function store(ChargeRequest $request)
     {
         $input = $request->all();
-        Charge::create($input);
+        $charge = Charge::create($input);
         \Session::flash('flash_message', '担当者を追加しました');
-        return redirect (route('charge.index'));
+        return redirect (route('charge_can_work.create',[ 'charge' => $charge ]));
     }
 
     public function index()
@@ -32,11 +31,16 @@ class ChargeController extends Controller
     public function edit($id)
     {
         $charge = Charge::find($id);
+
+        $chargeItems = $charge->find($charge->id)->product_items()->pluck('item_name');
+        dd($chargeItems);
+
         if (is_null($charge)) {
             \Session::flash('error_message','担当者がいません');
             return redirect (route('charge.index'));
         }
-        return view('charge.edit', [ 'charge' => $charge ]);
+        $product_items = ProductItem::paginate(5);
+        return view('charge.edit', [ 'charge' => $charge, 'product_items' => $product_items, 'chargeItems' => $chargeItems ]);
     }
 
     public function update(ChargeRequest $request, $id)

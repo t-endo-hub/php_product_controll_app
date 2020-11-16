@@ -2,6 +2,7 @@
 @section('content')
 
 <div class="container">
+  <div class="col-md-4">
     <h2>担当者新規登録</h2>
     <form action="{{route('charge.store')}}" method="POST">
     @csrf
@@ -17,8 +18,8 @@
                 {{ $errors->first('item_name') }}
             </div>
         @endif
-
       </div>
     </form>
+    </div>
 </div>
 @endsection

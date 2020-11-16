@@ -8,7 +8,11 @@ class ProductItem extends Model
 {
     protected $fillable = ['item_name'];
 
-    public function charge_can_work(){
-        return $this->hasMany('App\Models\ChargeCanWork');
+    public function charges()
+    {
+        return $this->belongsToMany('App\Models\Charge',
+                                    'charge_can_works',
+                                    'product_item_id',
+                                    'charge_id');
     }
 }
