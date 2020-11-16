@@ -18,7 +18,7 @@
       @foreach($charges as $charge)
       <tr>
         <td>{{$charge->charge_name}}</td>
-        <td>対応可能アイテム数</td>
+        <td>{{ $charge->find($charge->id)->product_items()->count() }}個</td>
         <td>
           <a class="btn btn-primary" href="{{ route ('charge_can_work.create', $charge->id) }}" >対応可能アイテム追加</a>
           <a class="btn btn-primary" href="{{ route ('charge.edit', $charge->id) }}" >詳細</a>

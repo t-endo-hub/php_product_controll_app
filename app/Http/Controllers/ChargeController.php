@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Charge;
 use App\Models\ProductItem;
+use App\Models\ChargeCanWork;
 use App\Http\Requests\ChargeRequest;
 
 class ChargeController extends Controller
