@@ -13,6 +13,6 @@ class ProductItem extends Model
         return $this->belongsToMany('App\Models\Charge',
                                     'charge_can_works',
                                     'product_item_id',
-                                    'charge_id');
+                                    'charge_id')->withPivot('time_required');
     }
 }

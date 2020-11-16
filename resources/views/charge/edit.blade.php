@@ -22,28 +22,20 @@
     </div>
 
     <div class="col-md-8">
-      <h2>生産可能アイテム追加</h2>
-        <form action="/charge_can_work" method="POST">
-        @csrf
-          <table class="table">
-            <tr>
-              <th></th>
-              <th>生産可能アイテム一覧</th>
-              <th>制作時間(単位あたり)</th>
-            </tr>
-            @foreach($chargeItems as $product_item)
-            <tr>
-                <input type="hidden" value="{{$charge->id}}">
-                <td><input type='checkbox' value='{{$product_item->id}}'></td>
-                <td>{{$product_item->item_name}}</td>
-                <td><input type="text" value="時間"></td>
-            </tr>
-            @endforeach
-          </table>
-          <button type="submit" class="btn btn-primary">
-            追加
-          </button>
-        </form>
+      <h2>生産可能アイテム</h2>
+      <table class="table">
+        <tr>
+          <th>生産可能アイテム一覧</th>
+          <th>制作時間(単位あたり)</th>
+        </tr>
+        @foreach($chargeItems as $product_item)
+        <tr>
+            <input type="hidden" value="{{$charge->id}}">
+            <td>{{$product_item->item_name}}</td>
+            <td>{{$product_item->pivot->time_required}}</td>
+        </tr>
+        @endforeach
+      </table>
       <div class="d-flex justify-content-center">
         {{ $product_items->links() }}
       </div>

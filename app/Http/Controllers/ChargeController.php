@@ -32,9 +32,7 @@ class ChargeController extends Controller
     {
         $charge = Charge::find($id);
 
-        $chargeItems = $charge->find($charge->id)->product_items()->pluck('item_name');
-        dd($chargeItems);
-
+        $chargeItems = $charge->find($charge->id)->product_items()->get();
         if (is_null($charge)) {
             \Session::flash('error_message','担当者がいません');
             return redirect (route('charge.index'));
