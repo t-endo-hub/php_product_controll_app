@@ -39,12 +39,12 @@ class ChargeController extends Controller
     public function edit($id)
     {
         $charge = Charge::find($id);
-        $chargeItems = $charge->find($charge->id)->product_items()->get();
+        $chargeItems = $charge->find($charge->id)->product_items()->paginate(5);
         if (is_null($charge)) {
             \Session::flash('error_message','担当者がいません');
             return redirect (route('charge.index'));
         }
-        $product_items = ProductItem::paginate(5);
+        $product_items = ProductItem::get();
         return view('charge.edit', [ 'charge' => $charge, 'product_items' => $product_items, 'chargeItems' => $chargeItems ]);
     }
 

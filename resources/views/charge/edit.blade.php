@@ -23,8 +23,8 @@
 
     <div class="col-md-8">
       <h2>生産可能アイテム追加</h2>
-        <form action="/charge_can_work" method="POST">
-        @csrf
+        
+        
           <table class="table">
             <tr>
               <th>生産アイテム名</th>
@@ -37,11 +37,21 @@
               <tr>
                 <td>{{$product_item->item_name}}</td>
                 <td>{{$product_item->pivot->time_required}}</td>
+                <td>
+                  <form action="{{ route ('charge_can_work.destroy',[ 'product_item_id' => $product_item->pivot->product_item_id, 'charge_id' => $charge->id ]) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">削除</button> 
+                  </form>
+                </td>
               </tr>
             @endforeach
+          </table>
             <!-- ---------------------- -->
 
             <!-- 新規登録フォーム -->
+            <form action="/charge_can_work" method="POST">
+            @csrf
             <tr>
               <input type="hidden" name="charge_id" value="{{ $charge->id }}">
               <td>
@@ -58,12 +68,13 @@
                 </button>
               </td>
             </tr>
+            </form>
             <!-- ------------------- -->
           </table>
-        </form>
+        
         
       <div class="d-flex justify-content-center">
-        {{ $product_items->links() }}
+        {{ $chargeItems->links() }}
       </div>
     </div>
   </div>

@@ -18,8 +18,7 @@ Route::resource('product_item', 'ProductItemController', ['except' => ['index', 
 
 Route::resource('charge', 'ChargeController');
 
-Route::get('charge_can_work/create/{id}', 'ChargeCanWorkController@create')->name('charge_can_work.create');
-
+Route::delete('charge_can_work/{product_item_id}/{charge_id}', 'ChargeCanWorkController@destroy')->name('charge_can_work.destroy');
 Route::resource('charge_can_work', 'ChargeCanWorkController', ['only' => ['store']]);
 
 
