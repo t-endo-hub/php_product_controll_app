@@ -29,10 +29,16 @@ class ChargeController extends Controller
         return view('charge.index', [ 'charges' => $charges ]);
     }
 
+    public function show($id)
+    {
+        $charge = Charge::find($id);
+        $chargeItems = $charge->find($charge->id)->product_items()->paginate(5);
+        return view('charge.show', [ 'charge' => $charge, 'chargeItems' => $chargeItems ]);
+    }
+
     public function edit($id)
     {
         $charge = Charge::find($id);
-
         $chargeItems = $charge->find($charge->id)->product_items()->get();
         if (is_null($charge)) {
             \Session::flash('error_message','担当者がいません');

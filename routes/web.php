@@ -16,7 +16,7 @@ Route::get('/', 'ProductItemController@index')->name('product_item.index');
 
 Route::resource('product_item', 'ProductItemController', ['except' => ['index', 'show']]);
 
-Route::resource('charge', 'ChargeController', ['except' => ['show']]);
+Route::resource('charge', 'ChargeController');
 
 Route::get('charge_can_work/create/{id}', 'ChargeCanWorkController@create')->name('charge_can_work.create');
 

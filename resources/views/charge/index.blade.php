@@ -20,8 +20,8 @@
         <td>{{$charge->charge_name}}</td>
         <td>{{ $charge->find($charge->id)->product_items()->count() }}個</td>
         <td>
-          <a class="btn btn-primary" href="{{ route ('charge_can_work.create', $charge->id) }}" >対応可能アイテム追加</a>
-          <a class="btn btn-primary" href="{{ route ('charge.edit', $charge->id) }}" >詳細</a>
+          <a class="btn btn-primary" href="{{ route ('charge.show', $charge->id) }}" >詳細</a>
+          <a class="btn btn-primary" href="{{ route ('charge.edit', $charge->id) }}" >編集</a>
         </td>
       </tr>
       @endforeach
