@@ -20,7 +20,7 @@ class ChargeController extends Controller
         $input = $request->all();
         $charge = Charge::create($input);
         \Session::flash('flash_message', '担当者を追加しました');
-        return redirect (route('charge_can_work.create',[ 'charge' => $charge ]));
+        return redirect (route('charge.index',[ 'charge' => $charge ]));
     }
 
     public function index()

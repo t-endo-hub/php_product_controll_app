@@ -36,7 +36,7 @@
             @foreach($chargeItems as $product_item)
               <tr>
                 <td>{{$product_item->item_name}}</td>
-                <td>{{$product_item->pivot->time_required}}</td>
+                <td>{{$product_item->pivot->time_required}}h</td>
                 <td>
                   <form action="{{ route ('charge_can_work.destroy',[ 'product_item_id' => $product_item->pivot->product_item_id, 'charge_id' => $charge->id ]) }}" method="POST">
                     @method('DELETE')
@@ -61,7 +61,7 @@
                   @endforeach
                   </select>
               </td>
-              <td><input type="text" name="time_required" value="時間"></td>
+              <td><input type="text" name="time_required" placeholder="例）1.5"></td>
               <td>
                 <button type="submit" class="btn btn-primary">
                   追加
