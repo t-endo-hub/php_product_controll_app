@@ -62,10 +62,17 @@
                   </select>
               </td>
               <td><input type="text" name="time_required" placeholder="例）1.5"></td>
+
+
               <td>
                 <button type="submit" class="btn btn-primary">
                   追加
                 </button>
+                @if ($errors->has('time_required'))
+                    <div class="text-danger">
+                        {{ $errors->first('time_required') }}
+                    </div>
+                @endif
               </td>
             </tr>
             </form>

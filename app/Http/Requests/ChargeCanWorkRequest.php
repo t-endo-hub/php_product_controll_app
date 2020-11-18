@@ -24,7 +24,7 @@ class ChargeCanWorkRequest extends FormRequest
     public function rules()
     {
         return [
-            'time_required' => 'required'
+            'time_required' => 'numeric | max:40 | required'
         ];
     }
 }

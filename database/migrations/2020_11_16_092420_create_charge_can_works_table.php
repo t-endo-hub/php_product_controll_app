@@ -25,7 +25,7 @@ class CreateChargeCanWorksTable extends Migration
             $table->foreign('product_item_id')->references('id')->on('product_items')
                 ->onDelete('cascade');
 
-            $table->float('time_required');
+            $table->string('time_required', 40)->nullable();
             $table->timestamps();
         });
     }

@@ -6,30 +6,26 @@ use Illuminate\Http\Request;
 use App\Models\ChargeCanWork;
 use App\Models\Charge;
 use App\Models\ProductItem;
-use App\Http\Requests\ChargeRequest;
+use App\Http\Requests\ChargeCanWorkRequest;
 
 
 class ChargeCanWorkController extends Controller
 {
-    public function store(Request $request)
+    public function store(ChargeCanWorkRequest $request)
     {
-        $alredyItem = ChargeCanWork::find($request->product_item_id);
-        if($alredyItem !== null){
-            // アイテム登録済みの処理
+        // すでに存在しているアイテムかどうか
+        $alredyItem = ChargeCanWork::where('product_item_id',$request->product_item_id)->where('charge_id',$request->charge_id)->exists();
+
+        if($alredyItem){
+            // アイテムがすでに存在している場合の処理
             \Session::flash('error_message', 'すでにアイテムは登録されています');
             return redirect (route('charge.edit', [ 'charge' => $request->charge_id ]));
         } else {
-            // アイテム新規登録の処理
-            $existsItem = ProductItem::find($request->product_item_id);
-            if($existsItem->exists()){
-                $input = $request->all();
-                ChargeCanWork::create($input);
-                \Session::flash('flash_message', '担当者の生産可能アイテムを追加しました');
-                return redirect (route('charge.edit', [ 'charge' => $request->charge_id ]));
-            } else {
-                \Session::flash('error_message', '対象アイテムが存在しません');
-                return back();
-            }
+            // アイテムを新規登録する場合の処理
+            $input = $request->all();
+            ChargeCanWork::create($input);
+            \Session::flash('flash_message', '担当者の生産可能アイテムを追加しました');
+            return redirect (route('charge.edit', [ 'charge' => $request->charge_id ]));
         }
     }
 
