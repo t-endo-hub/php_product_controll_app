@@ -58,6 +58,9 @@
                                     <a class="dropdown-item" href="{{ route('charge.index') }}">
                                         担当者一覧
                                     </a>
+                                    <a class="dropdown-item" href="{{ route('production_plan_on_charge.index') }}">
+                                        製造予定.実績
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
