@@ -23,6 +23,7 @@ class ChargeCanWorkController extends Controller
         } else {
             // アイテムを新規登録する場合の処理
             $input = $request->all();
+            
             ChargeCanWork::create($input);
             \Session::flash('flash_message', '担当者の生産可能アイテムを追加しました');
             return redirect (route('charge.edit', [ 'charge' => $request->charge_id ]));
