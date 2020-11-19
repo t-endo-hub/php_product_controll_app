@@ -7,7 +7,7 @@ use App\Models\Charge;
 use App\Models\ChargeCanWork;
 use App\Models\ProductItem;
 use App\Models\ProductionPlanOnCharge;
-use App\Http\Requests\ChargeRequest;
+use App\Http\Requests\ProductionPlanOnChargeRequest;
 use Carbon\Carbon;
 
 class ProductionPlanOnChargeController extends Controller
@@ -15,11 +15,19 @@ class ProductionPlanOnChargeController extends Controller
     public function index()
     {
         $product_items = ProductItem::paginate(10);
-        
-        $nextMonday = date('m/d',strtotime('next monday'));
-        $lastMonday = date('m/d',strtotime('last monday'));
-       
-        return view('production_plan_on_charge.index',[ 'product_items' => $product_items , 'nextMonday' => $nextMonday, 'lastMonday' => $lastMonday ]);
+        $mon1 = date('Y-m-d',strtotime('last monday' ));
+        $mon2 = date('Y-m-d',strtotime('next monday'));
+        $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
+
+        $mons = [$mon1,$mon2,$mon3];
+
+        $nextMondayNum = ProductionPlanOnCharge::where('start_date_of_week',$mon2)->get();
+        $totalNextMondayNum = 0;
+        for($i = 0; $i < $nextMondayNum->count(); $i++){
+            $bbb = $nextMondayNum[$i]->num;
+            $totalNextMondayNum = $totalNextMondayNum + $bbb;
+        }
+        return view('production_plan_on_charge.index',[ 'product_items' => $product_items , "mons" => $mons, "totalNextMondayNum" => $totalNextMondayNum  ]);
     }
 
     public function create($id)
@@ -32,9 +40,23 @@ class ProductionPlanOnChargeController extends Controller
         $charges =[];
         foreach($workCanCharges as $charge)
             {
-                $hoge = Charge::find($charge->charge_id);
-                array_push($charges,$hoge);
+                $charge = Charge::find($charge->charge_id);
+                array_push($charges,$charge);
             }
-        return view('production_plan_on_charge.create', ['product_item' => $product_item, 'charges' => $charges]);
+
+        $mon1 = date('Y-m-d' ,strtotime('next monday' ));
+        $mon2 = date('Y-m-d',strtotime('next monday + 1week'));
+        $mon3 = date('Y-m-d',strtotime('next monday + 2week'));
+
+        $mons = [$mon1,$mon2,$mon3];
+        return view('production_plan_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mons]);
+    }
+
+    public function store(ProductionPlanOnChargeRequest $request)
+    {
+        $input = $request->all();
+        $charge = ProductionPlanOnCharge::create($input);
+        \Session::flash('flash_message', '生産予定を追加しました');
+        return redirect (route('production_plan_on_charge.index'));
     }
 }

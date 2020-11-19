@@ -13,7 +13,7 @@ class ProductionPlanOnChargeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,7 +25,6 @@ class ProductionPlanOnChargeRequest extends FormRequest
     {
         return [
             'num' => 'required | numeric | max:1000',
-            'start_date_of_week' => 'date'
         ];
     }
 }

@@ -14,5 +14,10 @@ class ProductItem extends Model
                                     'charge_can_works',
                                     'product_item_id',
                                     'charge_id')->withPivot('time_required');
+
+        return $this->belongsToMany('App\Models\Charge',
+                                    'production_plan_on_charges',
+                                    'product_item_id',
+                                    'charge_id')->withPivot('num');
     }
 }

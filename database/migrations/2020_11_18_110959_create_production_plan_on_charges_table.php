@@ -20,6 +20,10 @@ class CreateProductionPlanOnChargesTable extends Migration
             $table->foreign('charge_id')->references('id')->on('charges')
                   ->onDelete('cascade');
 
+            $table->bigInteger('product_item_id')->unsigned();
+            $table->foreign('product_item_id')->references('id')->on('product_items')
+                ->onDelete('cascade');
+
             $table->date('start_date_of_week');
             $table->integer('num');
             $table->timestamps();
