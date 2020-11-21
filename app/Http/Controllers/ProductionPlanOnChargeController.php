@@ -18,16 +18,14 @@ class ProductionPlanOnChargeController extends Controller
         $mon1 = date('Y-m-d',strtotime('last monday' ));
         $mon2 = date('Y-m-d',strtotime('next monday'));
         $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
+        $mon4 = date('Y-m-d',strtotime('next monday + 2week'));
 
-        $mons = [$mon1,$mon2,$mon3];
+        $mons = [$mon1,$mon2,$mon3,$mon4];
 
-        $nextMondayNum = ProductionPlanOnCharge::where('start_date_of_week',$mon2)->get();
-        $totalNextMondayNum = 0;
-        for($i = 0; $i < $nextMondayNum->count(); $i++){
-            $bbb = $nextMondayNum[$i]->num;
-            $totalNextMondayNum = $totalNextMondayNum + $bbb;
-        }
-        return view('production_plan_on_charge.index',[ 'product_items' => $product_items , "mons" => $mons, "totalNextMondayNum" => $totalNextMondayNum  ]);
+
+
+
+        return view('production_plan_on_charge.index',['product_items' => $product_items, "mons" => $mons ]);
     }
 
     public function create($id)
