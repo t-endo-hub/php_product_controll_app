@@ -18,12 +18,8 @@ class ProductionPlanOnChargeController extends Controller
         $mon1 = date('Y-m-d',strtotime('last monday' ));
         $mon2 = date('Y-m-d',strtotime('next monday'));
         $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
-        $mon4 = date('Y-m-d',strtotime('next monday + 2week'));
 
-        $mons = [$mon1,$mon2,$mon3,$mon4];
-
-
-
+        $mons = [$mon1,$mon2,$mon3];
 
         return view('production_plan_on_charge.index',['product_items' => $product_items, "mons" => $mons ]);
     }
@@ -32,6 +28,7 @@ class ProductionPlanOnChargeController extends Controller
     {
         // 対象アイテムを取得
         $product_item = ProductItem::find($id);
+        $itemPlanCharges = $product_item->charges_plan()->paginate(5);
 
         // 対象アイテムの生産可能担当者を取得
         $workCanCharges = ChargeCanWork::where('product_item_id',$id)->get('charge_id');
@@ -47,7 +44,7 @@ class ProductionPlanOnChargeController extends Controller
         $mon3 = date('Y-m-d',strtotime('next monday + 2week'));
 
         $mons = [$mon1,$mon2,$mon3];
-        return view('production_plan_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mons]);
+        return view('production_plan_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mons, 'itemPlanCharges' => $itemPlanCharges]);
     }
 
     public function store(ProductionPlanOnChargeRequest $request)

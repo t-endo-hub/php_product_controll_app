@@ -6,7 +6,7 @@
     <table class="table">
         <thead>
           <tr>
-            <th></th>
+            <th>実績 / 予定</th>
             @foreach($mons as $mon)
               <th>{{ $mon }}</th>
             @endforeach
@@ -19,40 +19,58 @@
             <tr>
               <th>{{ $product_item->item_name }}</th>
              <?php
-              $inNextMondayNum = 0;
-              $in2NextMondayNum = 0;
-              $in3NextMondayNum = 0;
+              $inLastMondayAct = 0;
+              $inNextMondayAct = 0;
+              $in2NextMondayAct = 0;
+              $inLastMondayPlan = 0;
+              $inNextMondayPlan = 0;
+              $in2NextMondayPlan = 0;
 
-              for($i=0; $i<$product_item->charges_num->count(); $i ++)
+              // アイテム別、週別の実績を算出
+              for($i=0; $i<$product_item->charges_act->count(); $i ++)
               {
-                foreach($mons as $mon)
+                if($product_item->charges_act[$i]->pivot->start_date_of_week == $mons[0])
                 {
-                  if($product_item->charges_num[$i]->pivot->start_date_of_week == $mons[1])
-                  {
-                  $num = $product_item->charges_num[$i]->pivot->num;
-                  $inNextMondayNum = $inNextMondayNum + $num;
-                  }
+                  $num = $product_item->charges_act[$i]->pivot->num;
+                  $inLastMondayAct = $inLastMondayAct + $num;
                 }
-                if($product_item->charges_num[$i]->pivot->start_date_of_week == $mons[1])
+                elseif($product_item->charges_act[$i]->pivot->start_date_of_week == $mons[1])
                 {
-                  $num = $product_item->charges_num[$i]->pivot->num;
-                  $inNextMondayNum = $inNextMondayNum + $num;
-                }elseif($product_item->charges_num[$i]->pivot->start_date_of_week == $mons[2])
+                  $num = $product_item->charges_act[$i]->pivot->num;
+                  $inNextMondayAct = $inNextMondayAct + $num;
+                }
+                elseif($product_item->charges_act[$i]->pivot->start_date_of_week == $mons[2])
                 {
-                  $num = $product_item->charges_num[$i]->pivot->num;
-                  $in2NextMondayNum = $in2NextMondayNum + $num;
-                }elseif($product_item->charges_num[$i]->pivot->start_date_of_week == $mons[3])
+                  $num = $product_item->charges_act[$i]->pivot->num;
+                  $in2NextMondayAct = $in2NextMondayAct + $num;
+                }
+              }
+              
+              // アイテム別、週別の予定を算出
+              for($i=0; $i<$product_item->charges_plan->count(); $i ++)
+              {
+                if($product_item->charges_plan[$i]->pivot->start_date_of_week == $mons[0])
                 {
-                  $num = $product_item->charges_num[$i]->pivot->num;
-                  $in3NextMondayNum = $in3NextMondayNum + $num;
+                  $num = $product_item->charges_plan[$i]->pivot->num;
+                  $inLastMondayPlan = $inLastMondayPlan + $num;
+                }elseif($product_item->charges_plan[$i]->pivot->start_date_of_week == $mons[1])
+                {
+                  $num = $product_item->charges_plan[$i]->pivot->num;
+                  $inNextMondayPlan = $inNextMondayPlan + $num;
+                }elseif($product_item->charges_plan[$i]->pivot->start_date_of_week == $mons[2])
+                {
+                  $num = $product_item->charges_plan[$i]->pivot->num;
+                  $in2NextMondayPlan = $in2NextMondayPlan + $num;
                 }
               }
              ?>
-             <td>生産実績</td>
-             <td>{{ $inNextMondayNum }}</td>
-             <td>{{ $in2NextMondayNum }}</td>
-             <td>{{ $in3NextMondayNum }}</td>
-
+             <td>{{ $inLastMondayAct }} / {{ $inLastMondayPlan }}</td>
+             <td>{{ $inNextMondayAct }} / {{ $inNextMondayPlan }}</td>
+             <td>{{ $in2NextMondayAct }} / {{ $in2NextMondayPlan }}</td>
+             <td>
+              <a href="{{ route ('production_plan_on_charge.create', $product_item->id) }}" class="btn btn-primary">予定入力</a>
+              <a href="{{ route ('production_act_on_charge.create', $product_item->id) }}" class="btn btn-primary">実績入力</a>
+            </td>
 
 
 
@@ -62,7 +80,7 @@
          
 
               
-              <td><a href="{{ route ('production_plan_on_charge.create', $product_items[0]->id) }}" class="btn btn-primary">生産予定数入力</a></td>
+              
             </tr>
         </tbody>
     </table>
