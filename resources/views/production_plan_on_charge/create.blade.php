@@ -10,44 +10,47 @@
 
     <div class="col-md-8">
       <table class="table">
-        <tr>
-          <th></th>
-          @foreach( $mondays as $mons )
-            <th>{{ $mons }}</th>
-          @endforeach
-        </tr>
-
-        @foreach($itemPlanCharges as $charge)
-          <?php
-            $inNextMondayPlan = 0;
-            $in2NextMondayPlan = 0;
-            $in3NextMondayPlan = 0;
-
-            // アイテム別、週別の予定を算出
-            for($i=0; $i<$charge->product_items_plan->count(); $i ++)
-            {
-              if($charge->pivot->start_date_of_week == $mondays[0])
-              {
-                $num = $charge->pivot->num;
-                $inNextMondayPlan = $inNextMondayPlan + $num;
-              }elseif($charge->pivot->start_date_of_week == $mondays[1])
-              {
-                $num = $charge->pivot->num;
-                $in2NextMondayPlan = $in2NextMondayPlan + $num;
-              }elseif($charge->pivot->start_date_of_week == $mondays[2])
-              {
-                $num = $charge->pivot->num;
-                $in3NextMondayPlan = $in3NextMondayPlan + $num;
-              }
-            }
-          ?>
+        <thead>
           <tr>
-            <th>{{ $charge->charge_name }}</th>
-            <td>{{ $inNextMondayPlan }}</td>
-            <td>{{ $in2NextMondayPlan }}</td>
-            <td>{{ $in3NextMondayPlan }}</td>
+            <th></th>
+            @foreach( $mondays as $mons )
+              <th>{{ $mons }}</th>
+            @endforeach
           </tr>
-        @endforeach
+        </thead>
+        <tbody>
+          @foreach($itemPlanCharges as $charge)
+            <?php
+              $inNextMondayPlan = 0;
+              $in2NextMondayPlan = 0;
+              $in3NextMondayPlan = 0;
+
+              // アイテム別、週別の予定を算出
+              for($i=0; $i<$charge->product_items_plan->count(); $i ++)
+              {
+                if($charge->product_items_plan[$i]->pivot->start_date_of_week == $mondays[0])
+                {
+                  $num = $charge->product_items_plan[$i]->pivot->num;
+                  $inNextMondayPlan = $inNextMondayPlan + $num;
+                }elseif($charge->product_items_plan[$i]->pivot->start_date_of_week == $mondays[1])
+                {
+                  $num = $charge->product_items_plan[$i]->pivot->num;
+                  $in2NextMondayPlan = $in2NextMondayPlan + $num;
+                }elseif($charge->product_items_plan[$i]->pivot->start_date_of_week == $mondays[2])
+                {
+                  $num = $charge->product_items_plan[$i]->pivot->num;
+                  $in3NextMondayPlan = $in3NextMondayPlan + $num;
+                }
+              }
+            ?>
+            <tr>
+              <th>{{ $charge->charge_name }}</th>
+              <td>{{ $inNextMondayPlan }}</td>
+              <td>{{ $in2NextMondayPlan }}</td>
+              <td>{{ $in3NextMondayPlan }}</td>
+            </tr>
+          @endforeach
+        </tbody>
       </table>
 
       <div class="d-flex justify-content-center">

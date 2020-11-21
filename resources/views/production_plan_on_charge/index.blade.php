@@ -10,11 +10,9 @@
             @foreach($mons as $mon)
               <th>{{ $mon }}</th>
             @endforeach
-            <th></th>
           </tr>
         </thead>
         <tbody>
-        <td></td>
           @foreach($product_items as $product_item)
             <tr>
               <th>{{ $product_item->item_name }}</th>
@@ -64,24 +62,16 @@
                 }
               }
              ?>
-             <td>{{ $inLastMondayAct }} / {{ $inLastMondayPlan }}</td>
-             <td>{{ $inNextMondayAct }} / {{ $inNextMondayPlan }}</td>
-             <td>{{ $in2NextMondayAct }} / {{ $in2NextMondayPlan }}</td>
-             <td>
-              <a href="{{ route ('production_plan_on_charge.create', $product_item->id) }}" class="btn btn-primary">予定入力</a>
-              <a href="{{ route ('production_act_on_charge.create', $product_item->id) }}" class="btn btn-primary">実績入力</a>
-            </td>
-
-
-
-              <td></td>
+              <td>{{ $inLastMondayAct }} / {{ $inLastMondayPlan }}</td>
+              <td>{{ $inNextMondayAct }} / {{ $inNextMondayPlan }}</td>
+              <td>{{ $in2NextMondayAct }} / {{ $in2NextMondayPlan }}</td>
+              <td>
+                <a href="{{ route ('production_plan_on_charge.create', $product_item->id) }}" class="btn btn-primary">予定入力</a>
+                <a href="{{ route ('production_act_on_charge.create', $product_item->id) }}" class="btn btn-primary">実績入力</a>
+              </td>
             </tr>
           @endforeach
-         
 
-              
-              
-            </tr>
         </tbody>
     </table>
   </div>

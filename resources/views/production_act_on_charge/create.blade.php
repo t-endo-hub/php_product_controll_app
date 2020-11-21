@@ -10,44 +10,43 @@
 
     <div class="col-md-8">
       <table class="table">
-        <tr>
-          <th></th>
-          @foreach( $mondays as $mons )
-            <th>{{ $mons }}</th>
-          @endforeach
-        </tr>
-
-        @foreach($itemActCharges as $charge)
-          <?php
-            $lastMondayAct = 0;
-            $in2NextMondayAct = 0;
-            $in3NextMondayAct = 0;
-
-            // アイテム別、週別の予定を算出
-            for($i=0; $i<$charge->product_items_Act->count(); $i ++)
-            {
-              if($charge->pivot->start_date_of_week == $mondays[0])
-              {
-                $num = $charge->pivot->num;
-                $lastMondayAct = $lastMondayAct + $num;
-              }elseif($charge->pivot->start_date_of_week == $mondays[1])
-              {
-                $num = $charge->pivot->num;
-                $in2NextMondayAct = $in2NextMondayAct + $num;
-              }elseif($charge->pivot->start_date_of_week == $mondays[2])
-              {
-                $num = $charge->pivot->num;
-                $in3NextMondayAct = $in3NextMondayAct + $num;
-              }
-            }
-          ?>
+        <thead>
           <tr>
-            <th>{{ $charge->charge_name }}</th>
-            <td>{{ $lastMondayAct }}</td>
-            <td>{{ $in2NextMondayAct }}</td>
-            <td>{{ $in3NextMondayAct }}</td>
+            <th></th>
+            @foreach( $mondays as $mons )
+              <th>{{ $mons }}</th>
+            @endforeach
           </tr>
-        @endforeach
+        </thead>
+        <tbody>
+          @foreach($itemActCharges as $charge)
+            <tr>
+              <th>{{ $charge->charge_name }}</th>
+              <?php
+                $lastMondayAct = 0;
+                $in2NextMondayAct = 0;
+                $in3NextMondayAct = 0;
+                // アイテム別、週別の予定を算出
+                for($i=0; $i<$charge->product_items_act->count(); $i ++)
+                {
+                  if($charge->product_items_act[$i]->pivot->start_date_of_week == $mondays[0])
+                  {
+                    $lastMondayAct = $charge->product_items_act[$i]->pivot->num;
+                  }elseif($charge->product_items_act[$i]->pivot->start_date_of_week == $mondays[1])
+                  {
+                    $in2NextMondayAct = $charge->product_items_act[$i]->pivot->num;
+                  }elseif($charge->product_items_act[$i]->pivot->start_date_of_week == $mondays[2])
+                  {
+                    $in3NextMondayAct =  $charge->product_items_act[$i]->pivot->num;
+                  }
+                }
+              ?>
+              <td>{{ $lastMondayAct }}</td>
+              <td>{{ $in2NextMondayAct }}</td>
+              <td>{{ $in3NextMondayAct }}</td>
+            </tr>
+          @endforeach
+        </tbody>
       </table>
 
       <div class="d-flex justify-content-center">
