@@ -19,13 +19,20 @@
             <tr>
               <th>{{ $product_item->item_name }}</th>
              <?php
-              $totalNum = 0;
               $inNextMondayNum = 0;
               $in2NextMondayNum = 0;
               $in3NextMondayNum = 0;
 
               for($i=0; $i<$product_item->charges_num->count(); $i ++)
               {
+                foreach($mons as $mon)
+                {
+                  if($product_item->charges_num[$i]->pivot->start_date_of_week == $mons[1])
+                  {
+                  $num = $product_item->charges_num[$i]->pivot->num;
+                  $inNextMondayNum = $inNextMondayNum + $num;
+                  }
+                }
                 if($product_item->charges_num[$i]->pivot->start_date_of_week == $mons[1])
                 {
                   $num = $product_item->charges_num[$i]->pivot->num;
