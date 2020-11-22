@@ -2,7 +2,8 @@
 @section('content')
 
 <div class="container">
-  <div class="row">
+<h2>予定 / 実績</h2>
+  <div class="row mt-3">
     <table class="table">
         <thead>
           <tr>
