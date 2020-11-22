@@ -49,9 +49,21 @@ class ProductionPlanOnChargeController extends Controller
 
     public function store(ProductionPlanOnChargeRequest $request)
     {
-        $input = $request->all();
-        $charge = ProductionPlanOnCharge::create($input);
-        \Session::flash('flash_message', '生産予定を追加しました');
-        return redirect (route('production_plan_on_charge.index'));
+
+        // すでに存在しているアイテムかどうか
+        $alredyPlan = ProductionPlanOnCharge::where('start_date_of_week',$request->start_date_of_week)->where('charge_id',$request->charge_id)->exists();
+
+        if($alredyPlan){
+            // アイテムがすでに存在している場合の処理
+            \Session::flash('error_message', '予定は既に登録されています');
+            return redirect (route('production_plan_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
+        } else {
+            // アイテムを新規登録する場合の処理
+            $input = $request->all();
+            ProductionPlanOnCharge::create($input);
+            \Session::flash('flash_message', '予定を追加しました');
+            return redirect (route('production_plan_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
+        }
+        
     }
 }
