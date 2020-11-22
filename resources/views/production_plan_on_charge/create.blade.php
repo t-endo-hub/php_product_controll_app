@@ -24,25 +24,25 @@
               $inNextMondayPlan = 0;
               $in2NextMondayPlan = 0;
               $in3NextMondayPlan = 0;
-
-              // アイテム別、週別の予定を算出
-              for($i=0; $i<$charge->product_items_plan->count(); $i ++)
+          
+             // アイテム別、週別、担当者別の予定を算出
+             for($i=0; $i<$product_item->charges_plan->count(); $i ++)
               {
-                if($charge->product_items_plan[$i]->pivot->start_date_of_week == $mondays[0])
+                if($product_item->charges_plan[$i]->pivot->start_date_of_week == $mondays[0] and $product_item->charges_plan[$i]->pivot->charge_id == $charge->id)
                 {
-                  $num = $charge->product_items_plan[$i]->pivot->num;
+                  $num = $product_item->charges_plan[$i]->pivot->num;
                   $inNextMondayPlan = $inNextMondayPlan + $num;
-                }elseif($charge->product_items_plan[$i]->pivot->start_date_of_week == $mondays[1])
+                }elseif($product_item->charges_plan[$i]->pivot->start_date_of_week == $mondays[1] and $product_item->charges_plan[$i]->pivot->charge_id == $charge->id)
                 {
-                  $num = $charge->product_items_plan[$i]->pivot->num;
+                  $num = $product_item->charges_plan[$i]->pivot->num;
                   $in2NextMondayPlan = $in2NextMondayPlan + $num;
-                }elseif($charge->product_items_plan[$i]->pivot->start_date_of_week == $mondays[2])
+                }elseif($product_item->charges_plan[$i]->pivot->start_date_of_week == $mondays[2] and $product_item->charges_plan[$i]->pivot->charge_id == $charge->id)
                 {
-                  $num = $charge->product_items_plan[$i]->pivot->num;
+                  $num = $product_item->charges_plan[$i]->pivot->num;
                   $in3NextMondayPlan = $in3NextMondayPlan + $num;
                 }
               }
-            ?>
+              ?>
             <tr>
               <th>{{ $charge->charge_name }}</th>
               <td>{{ $inNextMondayPlan }}</td>

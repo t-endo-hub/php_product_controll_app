@@ -24,26 +24,29 @@
               <th>{{ $charge->charge_name }}</th>
               <?php
                 $lastMondayAct = 0;
+                $inNextMondayAct = 0;
                 $in2NextMondayAct = 0;
-                $in3NextMondayAct = 0;
-                // アイテム別、週別の予定を算出
-                for($i=0; $i<$charge->product_items_act->count(); $i ++)
+                // アイテム別、週別の実績を算出
+                for($i=0; $i<$product_item->charges_act->count(); $i ++)
                 {
-                  if($charge->product_items_act[$i]->pivot->start_date_of_week == $mondays[0])
+                  if($product_item->charges_act[$i]->pivot->start_date_of_week == $mondays[0] and $product_item->charges_act[$i]->pivot->charge_id == $charge->id)
                   {
-                    $lastMondayAct = $charge->product_items_act[$i]->pivot->num;
-                  }elseif($charge->product_items_act[$i]->pivot->start_date_of_week == $mondays[1])
+                    $num = $product_item->charges_act[$i]->pivot->num;
+                    $lastMondayAct = $lastMondayAct + $num;
+                  }elseif($product_item->charges_act[$i]->pivot->start_date_of_week == $mondays[1] and $product_item->charges_act[$i]->pivot->charge_id == $charge->id)
                   {
-                    $in2NextMondayAct = $charge->product_items_act[$i]->pivot->num;
-                  }elseif($charge->product_items_act[$i]->pivot->start_date_of_week == $mondays[2])
+                    $num = $product_item->charges_act[$i]->pivot->num;
+                    $inNextMondayAct = $inNextMondayAct + $num;
+                  }elseif($product_item->charges_act[$i]->pivot->start_date_of_week == $mondays[2] and $product_item->charges_act[$i]->pivot->charge_id == $charge->id)
                   {
-                    $in3NextMondayAct =  $charge->product_items_act[$i]->pivot->num;
+                    $num = $product_item->charges_act[$i]->pivot->num;
+                    $in2NextMondayAct = $in2NextMondayAct + $num;
                   }
                 }
               ?>
               <td>{{ $lastMondayAct }}</td>
+              <td>{{ $inNextMondayAct }}</td>
               <td>{{ $in2NextMondayAct }}</td>
-              <td>{{ $in3NextMondayAct }}</td>
             </tr>
           @endforeach
         </tbody>
