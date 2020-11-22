@@ -55,6 +55,9 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" href="{{ route('product_item.index') }}">
+                                        アイテム一覧
+                                    </a>
                                     <a class="dropdown-item" href="{{ route('charge.index') }}">
                                         担当者一覧
                                     </a>

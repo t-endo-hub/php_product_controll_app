@@ -14,7 +14,7 @@
 
 Route::get('/', 'ProductionPlanOnChargeController@index')->name('production_plan_on_charge.index');
 
-Route::resource('product_item', 'ProductItemController', ['except' => ['index', 'show']]);
+Route::resource('product_item', 'ProductItemController', ['except' => ['show']]);
 
 Route::resource('charge', 'ChargeController');
 

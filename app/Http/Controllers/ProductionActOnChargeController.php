@@ -32,9 +32,10 @@ class ProductionActOnChargeController extends Controller
         $mon1 = date('Y-m-d',strtotime('last monday'));
         $mon2 = date('Y-m-d',strtotime('next monday'));
         $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
+        $mon4 = date('Y-m-d',strtotime('next monday + 2week'));
 
-        $mons = [$mon1,$mon2,$mon3];
-        return view('production_act_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mons, 'itemActCharges' => $itemActCharges]);
+        $mondays = [$mon1,$mon2,$mon3,$mon4];
+        return view('production_act_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mondays, 'itemActCharges' => $itemActCharges]);
     }
 
     public function store(ProductionActOnChargeRequest $request)

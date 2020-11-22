@@ -18,10 +18,11 @@ class ProductionPlanOnChargeController extends Controller
         $mon1 = date('Y-m-d',strtotime('last monday' ));
         $mon2 = date('Y-m-d',strtotime('next monday'));
         $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
+        $mon4 = date('Y-m-d',strtotime('next monday + 2week'));
 
-        $mons = [$mon1,$mon2,$mon3];
+        $mondays = [$mon1,$mon2,$mon3,$mon4];
 
-        return view('production_plan_on_charge.index',['product_items' => $product_items, "mons" => $mons ]);
+        return view('production_plan_on_charge.index',['product_items' => $product_items, "mondays" => $mondays ]);
     }
 
     public function create($id)
@@ -39,19 +40,20 @@ class ProductionPlanOnChargeController extends Controller
                 array_push($charges,$charge);
             }
 
-        $mon1 = date('Y-m-d' ,strtotime('next monday' ));
-        $mon2 = date('Y-m-d',strtotime('next monday + 1week'));
-        $mon3 = date('Y-m-d',strtotime('next monday + 2week'));
+        $mon1 = date('Y-m-d',strtotime('last monday'));
+        $mon2 = date('Y-m-d' ,strtotime('next monday' ));
+        $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
+        $mon4 = date('Y-m-d',strtotime('next monday + 2week'));
 
-        $mons = [$mon1,$mon2,$mon3];
-        return view('production_plan_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mons, 'itemPlanCharges' => $itemPlanCharges]);
+        $mondays = [$mon1,$mon2,$mon3,$mon4];
+        return view('production_plan_on_charge.create', ['product_item' => $product_item, 'charges' => $charges, 'mondays' => $mondays, 'itemPlanCharges' => $itemPlanCharges]);
     }
 
     public function store(ProductionPlanOnChargeRequest $request)
     {
 
         // すでに存在しているアイテムかどうか
-        $alredyPlan = ProductionPlanOnCharge::where('start_date_of_week',$request->start_date_of_week)->where('charge_id',$request->charge_id)->exists();
+        $alredyPlan = ProductionPlanOnCharge::where('start_date_of_week',$request->start_date_of_week)->where('charge_id',$request->charge_id)->where('product_item_id', $request->product_item_id)->exists();
 
         if($alredyPlan){
             // アイテムがすでに存在している場合の処理
