@@ -18,7 +18,7 @@ class ProductionActOnChargeController extends Controller
     {
         // 対象アイテムを取得
         $product_item = ProductItem::find($id);
-        $itemActCharges = $product_item->charges_time_required()->paginate(5);
+        $itemActCharges = $product_item->charges_can_work()->paginate(5);
 
         // 対象アイテムの生産可能担当者を取得
         $workCanCharges = ChargeCanWork::where('product_item_id',$id)->get('charge_id');

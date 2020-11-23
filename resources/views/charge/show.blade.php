@@ -16,10 +16,10 @@
           <th>制作時間(単位あたり)</th>
         </tr>
         @foreach($chargeItems as $product_item)
-        <tr>
+          <tr>
             <td>{{$product_item->item_name}}</td>
-            <td>{{$product_item->pivot->time_required}}</td>
-        </tr>
+            <td>{{$product_item->pivot->time_required}}h</td>
+          </tr>
         @endforeach
       </table>
       <div class="d-flex justify-content-center">

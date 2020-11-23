@@ -16,11 +16,11 @@
         <th></th>
       </tr>
       @foreach($product_items as $product_item)
-      <tr>
-        <td>{{$product_item->item_name}}</td>
-        <td>{{$product_item->created_at}}</td>
-        <td><a class="btn btn-primary" href="{{ route ('product_item.edit', $product_item->id) }}" >編集</a></td>
-      </tr>
+        <tr>
+          <td>{{$product_item->item_name}}</td>
+          <td>{{$product_item->created_at}}</td>
+          <td><a class="btn btn-primary" href="{{ route ('product_item.edit', $product_item->id) }}" >編集</a></td>
+        </tr>
       @endforeach
     </table>
   </div>

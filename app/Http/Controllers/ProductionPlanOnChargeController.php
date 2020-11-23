@@ -29,7 +29,7 @@ class ProductionPlanOnChargeController extends Controller
     {
         // 対象アイテムを取得
         $product_item = ProductItem::find($id);
-        $itemPlanCharges = $product_item->charges_time_required()->paginate(5);
+        $itemPlanCharges = $product_item->charges_can_work()->paginate(5);
 
         // 対象アイテムの生産可能担当者を取得
         $workCanCharges = ChargeCanWork::where('product_item_id',$id)->get('charge_id');
@@ -52,15 +52,15 @@ class ProductionPlanOnChargeController extends Controller
     public function store(ProductionPlanOnChargeRequest $request)
     {
 
-        // すでに存在しているアイテムかどうか
+        // 選択週、選択担当者、選択アイテムに予定がすでに存在していないか
         $alredyPlan = ProductionPlanOnCharge::where('start_date_of_week',$request->start_date_of_week)->where('charge_id',$request->charge_id)->where('product_item_id', $request->product_item_id)->exists();
 
         if($alredyPlan){
-            // アイテムがすでに存在している場合の処理
+            // 予定がすでに存在している場合の処理
             \Session::flash('error_message', '予定は既に登録されています');
             return redirect (route('production_plan_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
         } else {
-            // アイテムを新規登録する場合の処理
+            // 予定を新規登録する場合の処理
             $input = $request->all();
             ProductionPlanOnCharge::create($input);
             \Session::flash('flash_message', '予定を追加しました');
@@ -72,11 +72,13 @@ class ProductionPlanOnChargeController extends Controller
     {
         $product_item = ProductItem::find($product_item);
         $charge = Charge::find($charge);
-        $productionPlanOnCharge = ProductionPlanOnCharge::where('charge_id',$charge->id)->where('product_item_id',$product_item->id)->where('start_date_of_week',$week)->get();
+
+        // 選択週、選択担当者、選択アイテムに予定がすでに存在していないか
+        $alredyPlan = ProductionPlanOnCharge::where('charge_id',$charge->id)->where('product_item_id',$product_item->id)->where('start_date_of_week',$week)->get();
 
         // 既に予定が存在している場合、編集ページへ
-        if(isset($productionPlanOnCharge[0])){
-            return view('production_plan_on_charge.edit',[ 'productionPlanOnCharge' => $productionPlanOnCharge, 'product_item' => $product_item, 'charge' => $charge, 'week' => $week]);
+        if(isset($alredyPlan[0])){
+            return view('production_plan_on_charge.edit',[ 'alredyPlan' => $alredyPlan, 'product_item' => $product_item, 'charge' => $charge, 'week' => $week]);
         // 予定が存在しない場合、予定作成ページへ
         }else{
             \Session::flash('flash_message', '予定を新規追加してください');

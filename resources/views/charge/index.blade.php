@@ -7,7 +7,7 @@
     <a class="btn btn-primary ml-3" href="{{ route('charge.create') }}">
         新規担当者追加
     </a>
-    </div>
+  </div>
   <div class="row">
     <table class="table">
       <tr>
@@ -18,7 +18,7 @@
       @foreach($charges as $charge)
       <tr>
         <td>{{$charge->charge_name}}</td>
-        <td>{{ $charge->product_items_time_required()->count() }}個</td>
+        <td>{{ $charge->product_items_can_work()->count() }}個</td>
         <td>
           <a class="btn btn-primary" href="{{ route ('charge.show', $charge->id) }}" >詳細</a>
           <a class="btn btn-primary" href="{{ route ('charge.edit', $charge->id) }}" >編集</a>

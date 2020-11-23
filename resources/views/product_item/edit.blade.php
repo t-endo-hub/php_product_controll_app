@@ -13,9 +13,9 @@
       </button>
 
       @if ($errors->has('item_name'))
-          <div class="text-danger">
-              {{ $errors->first('item_name') }}
-          </div>
+        <div class="text-danger">
+            {{ $errors->first('item_name') }}
+        </div>
       @endif
     </form>
 

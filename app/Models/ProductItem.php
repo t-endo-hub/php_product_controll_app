@@ -8,7 +8,7 @@ class ProductItem extends Model
 {
     protected $fillable = ['item_name'];
 
-    public function charges_time_required()
+    public function charges_can_work()
     {
         return $this->belongsToMany('App\Models\Charge',
                                     'charge_can_works',

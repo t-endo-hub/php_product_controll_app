@@ -27,9 +27,10 @@
                 $inNextMondayAct = 0;
                 $in2NextMondayAct = 0;
                 $in3NextMondayAct = 0;
-                // アイテム別、週別の実績を算出
+                // アイテム別、担当者別、週別の実績の合計を算出
                 for($i=0; $i<$product_item->charges_act->count(); $i ++)
                 {
+                  // production_act_on_chargesテーブルから該当週、該当担当者のデータを取得
                   if($product_item->charges_act[$i]->pivot->start_date_of_week == $mondays[0] and $product_item->charges_act[$i]->pivot->charge_id == $charge->id)
                   {
                     $num = $product_item->charges_act[$i]->pivot->num;
@@ -86,7 +87,6 @@
             </div>
         @endif
       </form>
-      
     </div>
   </div>
 </div>

@@ -48,16 +48,16 @@
         <!-- ---------------------- -->
 
         <!-- 新規登録フォーム -->
-        <form action="/charge_can_work" method="POST">
-        @csrf
+      <form action="/charge_can_work" method="POST">
+      @csrf
         <tr>
           <input type="hidden" name="charge_id" value="{{ $charge->id }}">
           <td>
-              <select name="product_item_id">
+            <select name="product_item_id">
               @foreach( $product_items as $product_item )
                 <option value="{{ $product_item->id }}">{{$product_item->item_name}}</option>
               @endforeach
-              </select>
+            </select>
           </td>
           <td><input type="text" name="time_required" placeholder="例）1.5"></td>
           <td>
@@ -71,7 +71,7 @@
             @endif
           </td>
         </tr>
-        </form>
+      </form>
         <!-- ------------------- -->
         
       <div class="d-flex justify-content-center">

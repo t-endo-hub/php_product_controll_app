@@ -31,6 +31,7 @@
              // アイテム別、週別、担当者別の予定を算出
              for($i=0; $i<$product_item->charges_plan->count(); $i ++)
               {
+                 // production_plan_on_chargesテーブルから該当週、該当担当者のデータを取得
                 if($product_item->charges_plan[$i]->pivot->start_date_of_week == $mondays[0] and $product_item->charges_plan[$i]->pivot->charge_id == $charge->id)
                 {
                   $num = $product_item->charges_plan[$i]->pivot->num;
@@ -68,29 +69,29 @@
       <form action="{{ route('production_plan_on_charge.store') }}" method="POST">
       @csrf
         <input type="hidden" name="product_item_id" value="{{ $product_item->id }}">
-          <select name="charge_id">
-            @foreach( $charges as $charge )
-              <option value="{{ $charge->id }}">{{$charge->charge_name}}</option>
-            @endforeach
-          </select>
-          <select name="start_date_of_week">
-            @foreach( $mondays as $mons )
-              <option value="{{ $mons }}">{{$mons}}</option>
-            @endforeach
-          </select>
+        <select name="charge_id">
+          @foreach( $charges as $charge )
+            <option value="{{ $charge->id }}">{{$charge->charge_name}}</option>
+          @endforeach
+        </select>
+        <select name="start_date_of_week">
+          @foreach( $mondays as $mons )
+            <option value="{{ $mons }}">{{$mons}}</option>
+          @endforeach
+        </select>
         <input type="text" name="num" placeholder="最大1000">
-          <button type="submit" class="btn btn-primary">
-            追加
-          </button>
-          <p>
-            ※予定を変更する場合、編集したい数値をクリック<br>
-            ※新たに予定を追加する場合、このフォームより入力
-          </p>
-          @if ($errors->has('num'))
-              <div class="text-danger">
-                  {{ $errors->first('num') }}
-              </div>
-          @endif
+        <button type="submit" class="btn btn-primary">
+          追加
+        </button>
+        <p>
+          ※予定を変更する場合、編集したい数値をクリック<br>
+          ※新たに予定を追加する場合、このフォームより入力
+        </p>
+        @if ($errors->has('num'))
+            <div class="text-danger">
+                {{ $errors->first('num') }}
+            </div>
+        @endif
       </form>
       
     </div>

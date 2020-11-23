@@ -10,7 +10,8 @@
     </div>
 
     <div class="col-md-9">
-      <form action="{{ route ('production_plan_on_charge.update', $productionPlanOnCharge[0]->id)}}" method="POST">
+    <!-- $alredyPlanは1つのみのはずなので[0]でOK? -->
+      <form action="{{ route ('production_plan_on_charge.update', $alredyPlan[0]->id)}}" method="POST">
       @method('PATCH')
       @csrf
         <table class="table">
@@ -18,7 +19,7 @@
             <th>{{ $week }}</th>
           </thead>
           <tbody>
-            <td><input type="text" name="num" value="{{ $productionPlanOnCharge[0]->num }}"></td>
+            <td><input type="text" name="num" value="{{ $alredyPlan[0]->num }}"></td>
           </tbody>
         </table>
         <button type="submit" class="btn btn-primary">

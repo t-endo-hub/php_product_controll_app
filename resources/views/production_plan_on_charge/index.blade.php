@@ -30,6 +30,7 @@
             // アイテム別、週別の実績を算出
             for($i=0; $i<$product_item->charges_act->count(); $i ++)
             {
+              // production_act_on_chargeテーブルから週別でソートして合計
               if($product_item->charges_act[$i]->pivot->start_date_of_week == $mondays[0])
               {
                 $num = $product_item->charges_act[$i]->pivot->num;
@@ -55,6 +56,7 @@
             // アイテム別、週別の予定を算出
             for($i=0; $i<$product_item->charges_plan->count(); $i ++)
             {
+              // production_plan_on_chargeテーブルから週別でソートして合計
               if($product_item->charges_plan[$i]->pivot->start_date_of_week == $mondays[0])
               {
                 $num = $product_item->charges_plan[$i]->pivot->num;
