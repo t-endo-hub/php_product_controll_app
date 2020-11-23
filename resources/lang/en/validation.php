@@ -105,7 +105,8 @@ return [
     'attributes' => [
         'item_name'=> 'アイテム名',
         'charge_name' => '担当者名',
-        'time_required' => '制作時間'
+        'time_required' => '制作時間',
+        'num' => '数値'
     ]
 
 ];

@@ -26,6 +26,7 @@
                 $lastMondayAct = 0;
                 $inNextMondayAct = 0;
                 $in2NextMondayAct = 0;
+                $in3NextMondayAct = 0;
                 // アイテム別、週別の実績を算出
                 for($i=0; $i<$product_item->charges_act->count(); $i ++)
                 {
@@ -41,12 +42,17 @@
                   {
                     $num = $product_item->charges_act[$i]->pivot->num;
                     $in2NextMondayAct = $in2NextMondayAct + $num;
+                  }elseif($product_item->charges_act[$i]->pivot->start_date_of_week == $mondays[3] and $product_item->charges_act[$i]->pivot->charge_id == $charge->id)
+                  {
+                    $num = $product_item->charges_act[$i]->pivot->num;
+                    $in3NextMondayAct = $in3NextMondayAct + $num;
                   }
                 }
               ?>
               <td>{{ $lastMondayAct }}</td>
               <td>{{ $inNextMondayAct }}</td>
               <td>{{ $in2NextMondayAct }}</td>
+              <td>{{ $in3NextMondayAct }}</td>
             </tr>
           @endforeach
         </tbody>
@@ -69,7 +75,7 @@
             <option value="{{ $mons }}">{{$mons}}</option>
           @endforeach
         </select>
-        <input type="text" name="num" placeholder="例）100">
+        <input type="text" name="num" placeholder="最大1000">
         
         <button type="submit" class="btn btn-primary">
           追加

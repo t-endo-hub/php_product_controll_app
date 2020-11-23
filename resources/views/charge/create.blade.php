@@ -13,13 +13,13 @@
           追加
         </button>
 
-        @if ($errors->has('item_name'))
-            <div class="text-danger">
-                {{ $errors->first('item_name') }}
-            </div>
+        @if ($errors->has('charge_name'))
+          <div class="text-danger">
+              {{ $errors->first('charge_name') }}
+          </div>
         @endif
       </div>
     </form>
-    </div>
+  </div>
 </div>
 @endsection

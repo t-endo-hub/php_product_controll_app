@@ -11,7 +11,7 @@ class ChargesTableSeeder extends Seeder
      */
     public function run()
     {
-        $charges = ['担当者１','担当者２','担当者３','担当者４'];
+        $charges = ['担当者１','担当者２','担当者３','担当者４','担当者５','担当者６'];
         foreach ($charges as $charge) {
             DB::table('charges')->insert([
                 'charge_name' => $charge,

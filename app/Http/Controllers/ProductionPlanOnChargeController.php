@@ -14,7 +14,7 @@ class ProductionPlanOnChargeController extends Controller
 {
     public function index()
     {
-        $product_items = ProductItem::paginate(10);
+        $product_items = ProductItem::paginate(5);
         $mon1 = date('Y-m-d',strtotime('last monday' ));
         $mon2 = date('Y-m-d',strtotime('next monday'));
         $mon3 = date('Y-m-d',strtotime('next monday + 1week'));
@@ -66,6 +66,28 @@ class ProductionPlanOnChargeController extends Controller
             \Session::flash('flash_message', '予定を追加しました');
             return redirect (route('production_plan_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
         }
-        
+    }
+
+    public function edit($product_item, $charge,$week)
+    {
+        $product_item = ProductItem::find($product_item);
+        $charge = Charge::find($charge);
+        $productionPlanOnCharge = ProductionPlanOnCharge::where('charge_id',$charge->id)->where('product_item_id',$product_item->id)->where('start_date_of_week',$week)->get();
+
+        if(isset($productionPlanOnCharge[0])){
+            return view('production_plan_on_charge.edit',[ 'productionPlanOnCharge' => $productionPlanOnCharge, 'product_item' => $product_item, 'charge' => $charge, 'week' => $week]);
+        }else{
+            \Session::flash('flash_message', '予定を新規追加してください');
+            return redirect (route('production_plan_on_charge.create',[ 'product_item_id' => $product_item]));
+        }
+    }
+
+    public function update(ProductionPlanOnChargeRequest $request, $id)
+    {
+        $input = $request->all();
+        $ProductionPlanOnCharge = ProductionPlanOnCharge::find($id);
+        $ProductionPlanOnCharge->update($input);
+        \Session::flash('flash_message', '予定を更新しました');
+        return redirect (route('production_plan_on_charge.index'));
     }
 }

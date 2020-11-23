@@ -25,7 +25,7 @@ class ChargeController extends Controller
 
     public function index()
     {
-        $charges = Charge::paginate(10);
+        $charges = Charge::paginate(5);
         return view('charge.index', [ 'charges' => $charges ]);
     }
 
