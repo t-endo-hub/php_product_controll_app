@@ -74,8 +74,10 @@ class ProductionPlanOnChargeController extends Controller
         $charge = Charge::find($charge);
         $productionPlanOnCharge = ProductionPlanOnCharge::where('charge_id',$charge->id)->where('product_item_id',$product_item->id)->where('start_date_of_week',$week)->get();
 
+        // 既に予定が存在している場合、編集ページへ
         if(isset($productionPlanOnCharge[0])){
             return view('production_plan_on_charge.edit',[ 'productionPlanOnCharge' => $productionPlanOnCharge, 'product_item' => $product_item, 'charge' => $charge, 'week' => $week]);
+        // 予定が存在しない場合、予定作成ページへ
         }else{
             \Session::flash('flash_message', '予定を新規追加してください');
             return redirect (route('production_plan_on_charge.create',[ 'product_item_id' => $product_item]));

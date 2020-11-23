@@ -41,8 +41,17 @@ class ProductionActOnChargeController extends Controller
     public function store(ProductionActOnChargeRequest $request)
     {
         $input = $request->all();
-        $charge = ProductionActOnCharge::create($input);
-        \Session::flash('flash_message', '生産実績を追加しました');
-        return redirect (route('production_act_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
+        $plan = ProductionPlanOnCharge::where('product_item_id',$input['product_item_id'])->where('charge_id',$input['charge_id'])->where('start_date_of_week',$input['start_date_of_week'])->get();
+
+        // 予定が存在 かつ 予定数>実績数の場合
+        if(isset($plan[0]) and $plan[0]->num >= $input['num']){
+            $act = ProductionActOnCharge::create($input);
+            \Session::flash('flash_message', '生産実績を追加しました');
+            return redirect (route('production_act_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
+        // 予定がない もしくは 予定数<実績数の場合
+        }else{
+            \Session::flash('error_message', '予定数を超過しています');
+            return redirect (route('production_act_on_charge.create', [ 'product_item_id' => $request->product_item_id ]));
+        }
     }
 }
